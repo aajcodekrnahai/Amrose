@@ -10,8 +10,10 @@ from telethon.sync import TelegramClient
 from pyrogram import Client as tgClient, enums, utils as pyroutils
 
 
-# Set up the event loop
-loop = asyncio.get_event_loop()
+
+# Create a new event loop
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
 
 # Configure logging
 logging.basicConfig(
@@ -19,8 +21,10 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
-# Initialize Pyrogram Client without 'max_concurrent_transmissions'
-sex = Client(
+sex = TelegramClient('sexrepo', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
+
+# Initialize Pyrogram Client
+app = Client(
     ":RestrictBot:",
     api_id=API_ID,
     api_hash=API_HASH,
@@ -31,10 +35,10 @@ sex = Client(
 
 async def restrict_bot():
     # Start the client
-    await sex.start()
+    await app.start()
 
     # Retrieve bot details
-    bot_details = await sex.get_me()
+    bot_details = await app.get_me()
     bot_id = bot_details.id
     bot_username = bot_details.username
     bot_name = bot_details.first_name
