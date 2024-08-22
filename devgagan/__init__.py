@@ -29,7 +29,7 @@ app = Client(
     max_concurrent_transmissions=5
 )
 
-def wztgClient(*args, **kwargs):
+def tgClient(*args, **kwargs):
     if 'max_concurrent_transmissions' in signature(tgClient.__init__).parameters:
         kwargs['max_concurrent_transmissions'] = 1000
     return tgClient(*args, **kwargs)
