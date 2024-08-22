@@ -10,42 +10,38 @@ from telethon.sync import TelegramClient
 from pyrogram import Client as tgClient, enums, utils as pyroutils
 
 
+# Set up the event loop
 loop = asyncio.get_event_loop()
 
+# Configure logging
 logging.basicConfig(
     format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s",
     level=logging.INFO,
 )
 
-sex = TelegramClient('sexrepo', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
-
+# Initialize Pyrogram Client without 'max_concurrent_transmissions'
 app = Client(
     ":RestrictBot:",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
     workers=10,
-    sleep_threshold=20,
-    max_concurrent_transmissions=5
+    sleep_threshold=20
 )
 
-def tgClient(*args, **kwargs):
-    if 'max_concurrent_transmissions' in signature(tgClient.__init__).parameters:
-        kwargs['max_concurrent_transmissions'] = 1000
-    return tgClient(*args, **kwargs)
-
 async def restrict_bot():
-    global BOT_ID, BOT_NAME, BOT_USERNAME
+    # Start the client
     await app.start()
-    getme = await app.get_me()
-    BOT_ID = getme.id
-    BOT_USERNAME = getme.username
-    if getme.last_name:
-        BOT_NAME = getme.first_name + " " + getme.last_name
-    else:
-        BOT_NAME = getme.first_name
 
+    # Retrieve bot details
+    bot_details = await app.get_me()
+    bot_id = bot_details.id
+    bot_username = bot_details.username
+    bot_name = bot_details.first_name
+    if bot_details.last_name:
+        bot_name += " " + bot_details.last_name
 
+    logging.info(f"Bot {bot_username} (ID: {bot_id}) initialized as {bot_name}")
+
+# Run the bot setup
 loop.run_until_complete(restrict_bot())
-
-
