@@ -20,7 +20,7 @@ logging.basicConfig(
 )
 
 # Initialize Pyrogram Client without 'max_concurrent_transmissions'
-app = Client(
+sex = Client(
     ":RestrictBot:",
     api_id=API_ID,
     api_hash=API_HASH,
@@ -31,10 +31,10 @@ app = Client(
 
 async def restrict_bot():
     # Start the client
-    await app.start()
+    await sex.start()
 
     # Retrieve bot details
-    bot_details = await app.get_me()
+    bot_details = await sex.get_me()
     bot_id = bot_details.id
     bot_username = bot_details.username
     bot_name = bot_details.first_name
