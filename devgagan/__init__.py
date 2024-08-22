@@ -7,6 +7,7 @@ from pyromod import listen
 from pyrogram import Client
 from config import API_ID, API_HASH, BOT_TOKEN
 from telethon.sync import TelegramClient
+from pyrogram import Client as tgClient, enums, utils as pyroutils
 
 
 loop = asyncio.get_event_loop()
@@ -28,7 +29,10 @@ app = Client(
     max_concurrent_transmissions=5
 )
 
-
+def wztgClient(*args, **kwargs):
+    if 'max_concurrent_transmissions' in signature(tgClient.__init__).parameters:
+        kwargs['max_concurrent_transmissions'] = 1000
+    return tgClient(*args, **kwargs)
 
 async def restrict_bot():
     global BOT_ID, BOT_NAME, BOT_USERNAME
