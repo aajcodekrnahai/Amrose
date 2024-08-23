@@ -84,14 +84,14 @@ async def get_seconds(time_string):
 
 
 
-PROGRESS_BAR = """\n
+PROGRESS_BAR = """`\n
 ╭──⌯════Progress═════⌯──╮
 ├⚡️ [●●●●●○○○○○]
-├🚀 Speed » `{3}/s`
-├📟 Completed » `{1}/{2}`
-├⏳ Time » `{4}`
+├🚀 Speed » {3}/s
+├📟 Completed » {1}/{2}
+├⏳ Time » {4}\n
 ╰─═══ ✪ Powered by [Team SPY](https://t.me/devggn) ✪ ═══─╯
-"""
+`"""
 
 
 
